@@ -1,0 +1,34 @@
+services:
+  contabo-snapshots:
+    image: ghcr.io/rgruenewald/contabo-snapshot-manager:latest
+    build: .
+    container_name: contabo-snapshot-manager
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Contabo API Credentials
+      - CONTABO_CLIENT_ID=${CONTABO_CLIENT_ID:-}
+      - CONTABO_CLIENT_SECRET=${CONTABO_CLIENT_SECRET:-}
+      - CONTABO_API_USER=${CONTABO_API_USER:-}
+      - CONTABO_API_PASSWORD=${CONTABO_API_PASSWORD:-}
+
+      # Ring-Buffer Retention Policy
+      - MAX_SNAPSHOTS=${MAX_SNAPSHOTS:-auto}
+      - SNAPSHOT_NAME=${SNAPSHOT_NAME:-daily}
+      - SNAPSHOT_DESCRIPTION=${SNAPSHOT_DESCRIPTION:-Automated ring-buffer snapshot}
+
+      # Instance Filtering (Optional)
+      - INCLUDE_INSTANCES=${INCLUDE_INSTANCES:-}
+      - EXCLUDE_INSTANCES=${EXCLUDE_INSTANCES:-}
+      - INSTANCE_FILTER=${INSTANCE_FILTER:-}
+
+      # Execution & Safety Settings
+      - DRY_RUN=${DRY_RUN:-false}
+      - WAIT_AFTER_DELETE=${WAIT_AFTER_DELETE:-5}
+
+      # Scheduling & Container Settings
+      - CRON_SCHEDULE=${CRON_SCHEDULE:-0 3 * * *}
+      - RUN_ON_STARTUP=${RUN_ON_STARTUP:-false}
+      - TZ=${TZ:-Europe/Berlin}

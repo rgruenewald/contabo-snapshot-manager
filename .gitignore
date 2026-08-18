@@ -1,0 +1,19 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs and runtime artifacts
+*.log
+logs/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# IDE & Editor artifacts
+.vscode/
+.idea/
+*.swp
+*~

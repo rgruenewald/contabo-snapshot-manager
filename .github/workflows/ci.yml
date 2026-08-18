@@ -1,0 +1,32 @@
+name: CI & Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Lint Scripts & Dockerfile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.'
+        env:
+          SHELLCHECK_OPTS: -e SC1091
+
+      - name: Dockerfile Lint (Hadolint)
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: "Dockerfile"
+          ignore: "DL3018"
+
+      - name: Test Docker Build (Local Architecture)
+        run: |
+          docker build -t contabo-snapshot-manager:test .

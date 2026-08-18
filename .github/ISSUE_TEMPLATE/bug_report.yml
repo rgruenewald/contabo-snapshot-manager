@@ -1,0 +1,39 @@
+name: 🐛 Bug Report
+description: Report a problem or unexpected behavior
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Please do **NOT** include any secrets, passwords, or Contabo API credentials in this report.
+  - type: input
+    id: version
+    attributes:
+      label: Version / Docker Tag
+      description: What version or image tag of Contabo Snapshot Manager are you using?
+      placeholder: e.g. latest, v1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: Deployment Type
+      options:
+        - Docker Compose
+        - Docker Standalone (docker run)
+        - Native Bash Execution
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: Please paste sanitized logs here (ensure all passwords/client secrets are masked).
+      render: shell

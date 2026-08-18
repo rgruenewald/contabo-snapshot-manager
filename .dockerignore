@@ -1,0 +1,25 @@
+# Git metadata
+.git
+.gitignore
+
+# Environment files & secrets
+.env
+.env.*
+!.env.example
+
+# Logs and runtime artifacts
+*.log
+logs/
+
+# IDE & Editor artifacts
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# CI/CD and repo files
+.github/
